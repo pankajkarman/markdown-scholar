@@ -2,6 +2,15 @@ import re, argparse
 import pandas as pd
 import pytablewriter as ptw
 
+def remove_hash(filename):
+    with open(filename, 'r') as md:
+        table = md.readlines()
+        table[0] = table[0].replace('# ', 'Table: ') + '\n'
+        table = ''.join(table)
+        
+    with open(filename, 'w') as outfile:
+        outfile.write(table)
+
 def replace_include(infile, outfile):
     with open(infile, 'r') as data:
         lines = data.readlines()
